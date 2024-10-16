@@ -1,0 +1,3 @@
+Trapezoidal Integral: 0.42418755452167567
+Simpson 1/3 Integral: 0.424383380248552
+Simpson 3/8 Integral: 0.4243934374073188

@@ -1,0 +1,4 @@
+Q1) The Mortar's maximum range is  2419.485 ft. Which is  737.459 meters. 
+This is reflected by the predicted range.
+Q3) That angle btween 10 and 40 degrees that hits the target is: 34.331 degrees (orange point).
+Q4) That angle btween 40 and 70 degrees that hits the target is: 61.38 degrees (green point).
