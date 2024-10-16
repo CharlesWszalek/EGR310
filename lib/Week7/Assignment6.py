@@ -92,6 +92,4 @@ plt.grid()
 SAVE(1)
 plt.show()
 
-
-
 PDF()
