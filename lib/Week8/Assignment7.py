@@ -1,3 +1,28 @@
 from lib.Header import *
 
-print2("hello")
+def centralDiff(func, x):
+    h = (max(x) - min(x)) / len(x)
+    derivative = []
+    for i in np.arange(len(x)-2)+1:
+        derivative.append((func(x[i + 1]) - func(x[i - 1])) / (2* h))
+    return derivative
+
+a = 1500 # ft
+time = [.9, 1, 1.1] # sec
+alpha = [54.8, 54.06, 53.34] # deg
+beta = [65.59, 64.59, 63.62] # deg
+
+def x(index):
+    return a * (np.tan(beta[index])) / (np.tan(beta[index]) - np.tan(alpha[index]))
+def y(index):
+    return a * (np.tan(beta[index])*np.tan(alpha[index])) / (np.tan(beta[index]) - np.tan(alpha[index]))
+
+vx = centralDiff(x, range(len(time)))
+vy = centralDiff(y, range(len(time)))
+
+print(vx)
+print(vy)
+
+v = np.sqrt(vx[0]**2 + vy[0]**2)
+
+print(v)

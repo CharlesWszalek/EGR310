@@ -1,10 +1,8 @@
 # Monday
-from ftplib import ftpcp
 
 # Wedneday - QUIZ
 
 # Friday - Parachute
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -13,7 +11,7 @@ m = 180/g # slug
 rho = 0.002377 # slug/ft^3
 R = 10 # ft
 A = np.pi * R**2 # ft^2
-Cd = 1.75 # drag coeff
+Cd = 1.75
 CD = Cd * .5 * rho * A
 
 h1 = .1
