@@ -1,7 +1,6 @@
-# Monday
+from lib.Header import *
 
-import numpy as np
-import matplotlib.pyplot as plt
+# Monday
 
 g = 32.2 # ft/s/s
 m = 180/g # slug
@@ -37,9 +36,11 @@ for i in range(len(time1)-1):
 plt.figure()
 plt.plot(time1, v1, label='v1')
 plt.show()
+SAVE(1)
 
 plt.figure()
 plt.plot(time1, x1, label='x1')
 plt.show()
+SAVE(2)
 
 # Wednesday
