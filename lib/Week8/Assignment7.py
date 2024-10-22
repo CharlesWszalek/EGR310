@@ -9,8 +9,8 @@ def centralDiff(func, x):
 
 a = 1500 # ft
 time = [.9, 1, 1.1] # sec
-alpha = [54.8, 54.06, 53.34] # deg
-beta = [65.59, 64.59, 63.62] # deg
+alpha = np.array([54.8, 54.06, 53.34]) * np.pi/180 # rad
+beta = np.array([65.59, 64.59, 63.62]) * np.pi/180 # rad
 
 def x(index):
     return a * (np.tan(beta[index])) / (np.tan(beta[index]) - np.tan(alpha[index]))
@@ -25,4 +25,6 @@ print(vy)
 
 v = np.sqrt(vx[0]**2 + vy[0]**2)
 
-print(v)
+print2(f"Velocity: {v}")
+
+PDF()
