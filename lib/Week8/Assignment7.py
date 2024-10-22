@@ -2,6 +2,8 @@ from lib.Header import *
 
 def centralDiff(func, x):
     h = (max(x) - min(x)) / len(x)
+    h = .1
+    print(h)
     derivative = []
     for i in np.arange(len(x)-2)+1:
         derivative.append((func(x[i + 1]) - func(x[i - 1])) / (2* h))
