@@ -1,7 +1,7 @@
 from lib.Header import *
 
 # Monday
-
+'''
 g = 32.2 # ft/s/s
 m = 180/g # slug
 rho = 0.002377 # slug/ft^3
@@ -38,7 +38,7 @@ plt.plot(time1, v1, label='v1')
 
 plt.figure()
 plt.plot(time1, x1, label='x1')
-
+'''
 # Wednesday: Heun's Method (Compare this to Week8.py)
 '''
 h2 = 1e-4
@@ -107,7 +107,7 @@ plt.show()
 # FRIDAY
 
 te = 30
-h4 = 1e-4
+h4 = 1e-5
 time4 = np.arange(0, te, h4)
 
 vx1 = np.zeros((2, len(time4)))
@@ -121,7 +121,6 @@ vx2[1][0] = 1
 vx3 = np.zeros((2, len(time4)))
 vx3[0][0] = 0
 vx3[1][0] = 1
-print(vx3)
 
 omega = 2 * np.pi / 180
 
@@ -136,7 +135,7 @@ for i in range(len(time4)-1):
     fom2 = 10 * np.cos(.5 * omega * time4[i])
     fom3 = 10 * np.cos(omega * time4[i])
     vx_half1 = vx1[:, i] + .5 * h4 * vx_dot(fom1, vx1[:, i])
-    vx1[:, i+1] = vx1[:, i] - h4 * vx_dot(fom1, vx1[:, i])
+    vx1[:, i + 1] = vx1[:, i] - h4 * vx_dot(fom1, vx1[:, i])
     vx_half2 = vx2[:, i] + .5 * h4 * vx_dot(fom2, vx2[:, i])
     vx2[:, i + 1] = vx2[:, i] - h4 * vx_dot(fom2, vx2[:, i])
     vx_half3 = vx3[:, i] + .5 * h4 * vx_dot(fom3, vx3[:, i])
@@ -147,11 +146,7 @@ plt.plot(time4, vx1[0], label='vx[0]')
 plt.legend()
 
 plt.figure()
-plt.plot(time4, vx1[0], label='vx1[1]')
-plt.legend()
-
-plt.figure()
-plt.plot(time4, vx1[1], label='vx1[0]')
+plt.plot(time4, vx1[1], label='vx1[1]')
 plt.legend()
 
 plt.figure()
@@ -163,11 +158,11 @@ plt.plot(time4, vx2[1], label='vx2[1]')
 plt.legend()
 
 plt.figure()
-plt.plot(time4, vx1[0], label='vx3[0]')
+plt.plot(time4, vx3[0], label='vx3[0]')
 plt.legend()
 
 plt.figure()
-plt.plot(time4, vx1[0], label='vx3[1]')
+plt.plot(time4, vx3[1], label='vx3[1]')
 plt.legend()
 
 plt.show()
