@@ -107,7 +107,7 @@ plt.show()
 # FRIDAY
 
 te = 30
-h4 = 1e-5
+h4 = 1e-4
 time4 = np.arange(0, te, h4)
 
 vx1 = np.zeros((2, len(time4)))
@@ -122,10 +122,10 @@ vx3 = np.zeros((2, len(time4)))
 vx3[0][0] = 0
 vx3[1][0] = 1
 
-omega = 2 * np.pi / 180
+omega = 2 * np.pi
 
 def vx_dot (fom, vx):
-    com = .2
+    com = 0.2
     kom = 39
     vxdot = np.matmul([[-com, -kom], [1, 0]],vx) + [fom, 0]
     return vxdot
@@ -135,14 +135,14 @@ for i in range(len(time4)-1):
     fom2 = 10 * np.cos(.5 * omega * time4[i])
     fom3 = 10 * np.cos(omega * time4[i])
     vx_half1 = vx1[:, i] + .5 * h4 * vx_dot(fom1, vx1[:, i])
-    vx1[:, i + 1] = vx1[:, i] - h4 * vx_dot(fom1, vx1[:, i])
+    vx1[:, i + 1] = vx1[:, i] + h4 * vx_dot(fom1, vx1[:, i])
     vx_half2 = vx2[:, i] + .5 * h4 * vx_dot(fom2, vx2[:, i])
-    vx2[:, i + 1] = vx2[:, i] - h4 * vx_dot(fom2, vx2[:, i])
+    vx2[:, i + 1] = vx2[:, i] + h4 * vx_dot(fom2, vx2[:, i])
     vx_half3 = vx3[:, i] + .5 * h4 * vx_dot(fom3, vx3[:, i])
-    vx3[:, i + 1] = vx3[:, i] - h4 * vx_dot(fom3, vx3[:, i])
+    vx3[:, i + 1] = vx3[:, i] + h4 * vx_dot(fom3, vx3[:, i])
 
 plt.figure()
-plt.plot(time4, vx1[0], label='vx[0]')
+plt.plot(time4, vx1[0], label='vx1[0]')
 plt.legend()
 
 plt.figure()
