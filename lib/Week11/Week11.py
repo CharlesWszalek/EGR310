@@ -45,7 +45,7 @@ def parachute_ode (t, vx, g, CDm):
 vini = sci.newton(ivp(prop, vini), vini_0)
 '''
 # WEDNESDAY Rocket Launcher
-'''
+
 import numpy as np
 import scipy.optimize
 from scipy.integrate import solve_ivp
@@ -134,32 +134,63 @@ import numpy as np
 from scipy.integrate import solve_bvp
 import matplotlib.pyplot as plt
 
-# Define the differential equation y'' = -y
-def ode_system(x, y):
-    # y[0] = y and y[1] = y'
-    return np.vstack((y[1], -y[0]))
+# Given parameters
+m = 150 / 32.2  # mass
+cd = 1.75
+rho = 0.002377  # slug/ft^3
+R = 5
+CD = cd * 0.5 * rho * (np.pi * R**2)
+CDm = CD / m
+vini_0 = 60
 
-# Define the boundary conditions y(0) = 0, y(pi) = 0
-def boundary_conditions(ya, yb):
-    return np.array([ya[0], yb[0]])
+# Properties of the problem
+class prop:
+    def __init__(self, g, CDm, tspan, zini, zfin):
+        self.g = g
+        self.CDm = CDm
+        self.tspan = tspan
+        self.zini = zini
+        self.zfin = zfin
 
-# Define the x range and initial guess for y(x)
-x = np.linspace(0, np.pi, 100)
-y_guess = np.zeros((2, x.size))  # Initial guess for y and y'
+p = prop(g=32.2, CDm=CDm, tspan=[0, 3], zini=100, zfin=0)
 
-# Solve the BVP
-solution = solve_bvp(ode_system, boundary_conditions, x, y_guess)
+# Define the ODE system for solve_bvp
+def parachute_ode(t, vx):
+    dvxdt = np.zeros((2, t.size))
+    dvxdt[0] = p.g - p.CDm * vx[0]**2  # velocity derivative
+    dvxdt[1] = -vx[0]                  # position derivative
+    return dvxdt
 
-# Check if the solution was successful
+# Boundary conditions for the position and velocity
+def bc(vx_ini, vx_fin):
+    return np.array([vx_ini[1] - p.zini,  # initial position
+                     vx_fin[1] - p.zfin])  # final position
+
+# Initial guess for the solution (constant initial guesses)
+t_guess = np.linspace(p.tspan[0], p.tspan[1], 10)
+vx_guess = np.zeros((2, t_guess.size))
+vx_guess[0] = vini_0  # Initial guess for velocity
+
+# Solve the boundary value problem
+solution = solve_bvp(parachute_ode, bc, t_guess, vx_guess)
+
+# Check if the solution was successful and print results
 if solution.success:
-    # Plot the solution
-    plt.plot(solution.x, solution.y[0], label="y(x)")
-    plt.xlabel("x")
-    plt.ylabel("y")
-    plt.title("Solution to the Boundary Value Problem")
+    # Plot the velocity solution vx(t)
+    plt.plot(solution.x, solution.y[0], label="vx(t)")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Velocity (ft/s)")
+    plt.title("Parachute Falling with Air Resistance")
+    plt.legend()
+    plt.show()
+
+    # Plot the position solution
+    plt.plot(solution.x, solution.y[1], label="Position(t)")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Position (ft)")
+    plt.title("Position vs Time for Parachute Fall")
     plt.legend()
     plt.show()
 else:
     print("The solver did not converge.")
-
-
+'''
